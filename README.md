@@ -1,4 +1,78 @@
-# Receipt Processor
+# My Documentation
+## Receipt Processor API
+
+This API processes receipts and calculates loyalty points based on the receipt data. It exposes two endpoints:
+
+- `POST /receipts/process`: Accepts receipt data and returns a unique ID for the receipt.
+- `GET /receipts/{id}/points`: Accepts a receipt ID and returns the loyalty points for that receipt.
+
+## Features
+- In-memory storage for receipts.
+- Calculates loyalty points based on receipt data.
+- Simple API with HTTP methods for interaction.
+
+## Installation
+
+To run the application locally, follow these steps:
+
+### Prerequisites
+
+- **Go** (version 1.18 or later) must be installed on your machine. You can download Go from the official website: [Go Downloads](https://golang.org/dl/).
+
+### Setup & Execution Instructions
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/IAmJTR/receipt-processor-challenge.git
+   cd receipt-processor-challenge
+   
+2. Install dependencies:
+   ```bash
+   go mod tidy
+
+4. To run the application:
+   ```bash
+   go run main.go
+
+5. The API will be running on http://localhost:8080.
+
+6. On a separate terminal:
+  #### Process a receipt:
+    ```curl -X POST -H "Content-Type: application/json" -d '{"retailer": "Target", "purchaseDate": "2022-01-01", "purchaseTime": "13:01", "items": [{"shortDescription": "Mountain Dew 12PK", "price": "6.49"}], "total": "6.49"}' http://localhost:8080/receipts/process
+   
+  #### Get points for a receipt:
+     ```curl http://localhost:8080/receipts/bbc6c3a4-7d77-4524-9793-c8dc197fd8e1/points
+## API Endpoints
+### POST /receipts/process
+  - Description: Processes a receipt and generates a unique ID.
+  - Request Body:
+    ```json
+    {
+      "retailer": "Target",
+      "purchaseDate": "2022-01-01",
+      "purchaseTime": "13:01",
+      "items": [
+        {"shortDescription": "Mountain Dew 12PK", "price": "6.49"}
+      ],
+      "total": "6.49"
+    }
+  - Response:
+    ```json
+    {
+      "id": "bbc6c3a4-7d77-4524-9793-c8dc197fd8e1"
+    }
+### GET /receipts/{id}/points
+  - Description: Retrieves the loyalty points for the receipt with the given ID.
+  - URL Parameter:
+      - id(string): The reciept ID.
+  - Response:
+    ```json
+    {
+      "points": 28
+    }
+
+# Instructions
+## Receipt Processor
 
 Build a webservice that fulfils the documented API. The API is described below. A formal definition is provided 
 in the [api.yml](./api.yml) file. We will use the described API to test your solution.
