@@ -36,12 +36,14 @@ To run the application locally, follow these steps:
 
 5. The API will be running on http://localhost:8080.
 
-6. On a separate terminal:
+6. On a separate terminal (examples):
   #### Process a receipt:
-    ```curl -X POST -H "Content-Type: application/json" -d '{"retailer": "Target", "purchaseDate": "2022-01-01", "purchaseTime": "13:01", "items": [{"shortDescription": "Mountain Dew 12PK", "price": "6.49"}], "total": "6.49"}' http://localhost:8080/receipts/process
+    curl -X POST -H "Content-Type: application/json" -d '{"retailer": "Target", "purchaseDate": "2022-01-01", "purchaseTime": "13:01", "items": [{"shortDescription": "Mountain Dew 12PK", "price": "6.49"}], "total": "6.49"}' http://localhost:8080/receipts/process
+   Format: curl -X POST -H "Content-Type: application/json" -d '{retailer, purchaseDate, purchaseTime, items[{description, price}], total}' http://localhost:8080/receipts/process
    
   #### Get points for a receipt:
-     ```curl http://localhost:8080/receipts/bbc6c3a4-7d77-4524-9793-c8dc197fd8e1/points
+     curl http://localhost:8080/receipts/bbc6c3a4-7d77-4524-9793-c8dc197fd8e1/points
+   Format: curl http://localhost:8080/receipts/{id}/points
 ## API Endpoints
 ### POST /receipts/process
   - Description: Processes a receipt and generates a unique ID.
